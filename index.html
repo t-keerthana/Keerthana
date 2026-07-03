@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Keerthana T — Application Support Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E14;
+    --panel:#10151D;
+    --panel-2:#141B25;
+    --border:#232B38;
+    --border-soft:#1B2230;
+    --text:#DCE3ED;
+    --muted:#7A8699;
+    --dim:#4C5666;
+    --green:#3ECF8E;
+    --green-dim:#1E4A3A;
+    --amber:#F2A93B;
+    --amber-dim:#4A3A1C;
+    --red:#F2545B;
+    --red-dim:#4A1F22;
+    --blue:#5B9DF9;
+    --mono:'IBM Plex Mono', monospace;
+    --sans:'IBM Plex Sans', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.5;
+    padding:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity:0.25;
+    pointer-events:none;
+    z-index:0;
+  }
+  .wrap{ max-width:960px; margin:0 auto; padding:28px 20px 80px; position:relative; z-index:1;}
+
+  /* ---- top bar ---- */
+  .topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:11px; color:var(--dim);
+    letter-spacing:0.06em; text-transform:uppercase;
+    padding-bottom:14px; border-bottom:1px solid var(--border-soft);
+    margin-bottom:22px; flex-wrap:wrap; gap:8px;
+  }
+  .topbar .status-chip{
+    display:inline-flex; align-items:center; gap:6px;
+    color:var(--green); font-weight:600;
+  }
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+
+  /* ---- header / hero ---- */
+  .hero{
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:28px 26px;
+    margin-bottom:18px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.4fr 1fr; gap:24px; align-items:start;
+  }
+  @media (max-width:720px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; color:var(--blue);
+    letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;
+    display:flex; align-items:center; gap:8px;
+  }
+  h1{
+    font-size:34px; font-weight:700; letter-spacing:-0.01em; margin-bottom:6px;
+  }
+  .role-line{
+    font-family:var(--mono); font-size:13px; color:var(--muted); margin-bottom:18px;
+  }
+  .role-line b{ color:var(--text); font-weight:500; }
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  .contact-row a{ color:var(--muted); text-decoration:none; border-bottom:1px dashed var(--dim); }
+  .contact-row a:hover{ color:var(--blue); border-color:var(--blue); }
+
+  .uptime-panel{
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px 18px;
+  }
+  .uptime-label{ font-family:var(--mono); font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;}
+  .uptime-value{
+    font-family:var(--mono); font-size:26px; font-weight:600; color:var(--green);
+    letter-spacing:0.01em;
+  }
+  .uptime-sub{ font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:4px;}
+  .spark{ margin-top:14px; display:flex; align-items:flex-end; gap:3px; height:28px;}
+  .spark i{ display:block; width:5px; background:var(--green); opacity:0.55; border-radius:1px; }
+
+  /* ---- section shell ---- */
+  .section{ margin-bottom:18px; }
+  .section-head{
+    display:flex; align-items:center; gap:10px; margin-bottom:12px;
+  }
+  .section-head .idx{
+    font-family:var(--mono); font-size:11px; color:var(--dim);
+    border:1px solid var(--border); border-radius:4px; padding:2px 7px;
+  }
+  .section-head h2{
+    font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text);
+  }
+  .section-head .rule{ flex:1; height:1px; background:var(--border-soft);}
+
+  .panel{
+    background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px 20px;
+  }
+  .summary-text{ color:var(--muted); font-size:14px; line-height:1.7; }
+
+  /* ---- competency tags ---- */
+  .tag-cloud{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--mono); font-size:11.5px; color:var(--text);
+    background:var(--panel-2); border:1px solid var(--border);
+    padding:5px 10px; border-radius:5px; cursor:default;
+    transition:border-color .15s, color .15s;
+  }
+  .tag:hover{ border-color:var(--blue); color:var(--blue); }
+
+  /* ---- incident log (experience) ---- */
+  .company-strip{
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px;
+    margin-bottom:14px;
+  }
+  .company-strip .co{ font-size:16px; font-weight:600; }
+  .company-strip .co span{ color:var(--muted); font-weight:400; font-size:13px; }
+  .company-strip .period{ font-family:var(--mono); font-size:11px; color:var(--green); background:var(--green-dim); padding:3px 9px; border-radius:20px; }
+
+  .ticket{
+    display:grid; grid-template-columns: 108px 60px 1fr;
+    gap:14px; align-items:start;
+    padding:12px 0; border-top:1px solid var(--border-soft);
+  }
+  .ticket:first-of-type{ border-top:none; }
+  .ticket-id{ font-family:var(--mono); font-size:11px; color:var(--dim); padding-top:2px;}
+  .sev{
+    font-family:var(--mono); font-size:10px; font-weight:700; text-align:center;
+    padding:3px 0; border-radius:4px; height:fit-content; letter-spacing:0.05em;
+  }
+  .sev.P1{ color:var(--red); background:var(--red-dim); border:1px solid #5c2429;}
+  .sev.P2{ color:var(--amber); background:var(--amber-dim); border:1px solid #5c451f;}
+  .sev.P3{ color:var(--blue); background:#1c2a45; border:1px solid #2a3f63;}
+  .ticket-body{ font-size:13.5px; color:var(--text); }
+  .ticket-tag{ font-family:var(--mono); font-size:10px; color:var(--muted); display:block; margin-bottom:3px; text-transform:uppercase; letter-spacing:0.06em;}
+
+  /* ---- skills grid ---- */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+  }
+  @media (max-width:720px){ .skills-grid{ grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:480px){ .skills-grid{ grid-template-columns:1fr;} }
+  .skill-card{
+    background:var(--panel-2); border:1px solid var(--border); border-radius:7px; padding:12px 13px;
+    transition:transform .15s, border-color .15s;
+  }
+  .skill-card:hover{ transform:translateY(-2px); border-color:var(--green);}
+  .skill-card .cat{
+    display:flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:10.5px; color:var(--green); text-transform:uppercase; letter-spacing:0.06em;
+    margin-bottom:8px;
+  }
+  .skill-card .cat .mini-dot{ width:5px; height:5px; border-radius:50%; background:var(--green);}
+  .skill-card ul{ list-style:none; }
+  .skill-card li{ font-size:12.5px; color:var(--muted); padding:2px 0; }
+
+  /* ---- education timeline ---- */
+  .timeline{ position:relative; padding-left:22px; }
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:4px; bottom:4px; width:1px; background:var(--border);
+  }
+  .tl-item{ position:relative; padding-bottom:18px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:''; position:absolute; left:-22px; top:3px; width:9px; height:9px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--green);
+  }
+  .tl-year{ font-family:var(--mono); font-size:11px; color:var(--green); margin-bottom:2px;}
+  .tl-title{ font-size:14px; font-weight:600; }
+  .tl-org{ font-size:12.5px; color:var(--muted); }
+
+  /* ---- footer ---- */
+  .footer{
+    margin-top:24px; padding-top:16px; border-top:1px solid var(--border-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:11px; color:var(--dim);
+  }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:16px; margin-top:6px;}
+  .meta-row span b{ color:var(--muted); font-weight:500;}
+
+  ::selection{ background:var(--green); color:#04140D; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div>SESSION://production-support-profile</div>
+    <div class="status-chip"><span class="dot"></span>STATUS: OPEN TO WORK</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot" style="animation:none;"></span> PROFILE // KEERTHANA T</div>
+        <h1>Keerthana T</h1>
+        <div class="role-line">
+          <b>Application Support Engineer</b> · Production Support Analyst · IT Operations
+        </div>
+        <div class="contact-row">
+          <a href="mailto:fyndkeerthana@gmail.com">fyndkeerthana@gmail.com</a>
+          <span>+91 80729 40960</span>
+          <span>Chennai, India</span>
+        </div>
+      </div>
+      <div class="uptime-panel">
+        <div class="uptime-label">System uptime · since 2022</div>
+        <div class="uptime-value" id="uptimeClock">00d 00h 00m 00s</div>
+        <div class="uptime-sub">4+ yrs production support · 24×7 environments</div>
+        <div class="spark" id="spark"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section">
+    <div class="section-head"><span class="idx">01</span><h2>Summary</h2><span class="rule"></span></div>
+    <div class="panel">
+      <p class="summary-text">Application Support Engineer with 4 years of experience in Production Support, Application Monitoring, Incident Management, IT Service Management (ITSM), and Enterprise Application Support. Experienced in Dynatrace monitoring, Oracle SQL troubleshooting, API testing, Root Cause Analysis (RCA), ServiceNow/Xurrent ticket management, SLA compliance, batch monitoring, and cross-functional collaboration. Skilled in ensuring high availability, performance optimization, incident resolution, and operational excellence within 24x7 global support environments.</p>
+    </div>
+  </div>
+
+  <!-- CORE COMPETENCIES -->
+  <div class="section">
+    <div class="section-head"><span class="idx">02</span><h2>Core Competencies</h2><span class="rule"></span></div>
+    <div class="panel">
+      <div class="tag-cloud" id="tagCloud"></div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="section-head"><span class="idx">03</span><h2>Experience Log</h2><span class="rule"></span></div>
+    <div class="panel">
+      <div class="company-strip">
+        <div class="co">Tata Consultancy Services (TCS) <span>— Application Support Analyst (L1.5)</span></div>
+        <div class="period">2022 — PRESENT</div>
+      </div>
+      <div id="ticketLog"></div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL SKILLS -->
+  <div class="section">
+    <div class="section-head"><span class="idx">04</span><h2>Service Catalog · Technical Skills</h2><span class="rule"></span></div>
+    <div class="skills-grid" id="skillsGrid"></div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-head"><span class="idx">05</span><h2>Education</h2><span class="rule"></span></div>
+    <div class="panel">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2023</div>
+          <div class="tl-title">Master of Computer Applications (MCA)</div>
+          <div class="tl-org">Sri Muthukumaran Institute of Technology</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2021</div>
+          <div class="tl-title">B.Sc. Computer Science</div>
+          <div class="tl-org">Bhaktavatsalam Memorial College for Women</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>
+      Record verified true &amp; correct to the best of knowledge — K. T.
+      <div class="meta-row">
+        <span><b>DOB:</b> 12-06-2001</span>
+        <span><b>Languages:</b> Tamil, English</span>
+        <span><b>Nationality:</b> Indian</span>
+      </div>
+    </div>
+    <div>doc://keerthana-t/resume · rendered live</div>
+  </div>
+
+</div>
+
+<script>
+  // Competencies
+  const competencies = ["Application Support","Production Support","Incident Management","Problem Management",
+  "Change Management","Service Delivery","ITIL","SLA Management","Monitoring & Observability","Dynatrace",
+  "APM","Root Cause Analysis (RCA)","Oracle SQL","Database Support","API Testing","Postman","SoapUI",
+  "TIBCO EMS","Batch Monitoring","JAMS Scheduler","Linux/Unix","PuTTY","ITSM Tools","Service Desk Operations",
+  "Operational Reporting","Stakeholder Management","Troubleshooting","Escalation Management"];
+  const tagCloud = document.getElementById('tagCloud');
+  competencies.forEach(c=>{
+    const t=document.createElement('span'); t.className='tag'; t.textContent=c; tagCloud.appendChild(t);
+  });
+
+  // Experience as incident tickets
+  const tickets = [
+    {id:"INC-24051", sev:"P2", tag:"Monitoring", text:"Monitor enterprise applications using Dynatrace and proactively identify outages, performance bottlenecks, and service degradation."},
+    {id:"INC-24052", sev:"P1", tag:"Incident Mgmt", text:"Manage end-to-end incident lifecycle including ticket creation, prioritization, escalation, tracking, and resolution within SLA targets."},
+    {id:"INC-24053", sev:"P3", tag:"Monitoring", text:"Perform application health checks, availability monitoring, and operational reporting for business-critical systems."},
+    {id:"INC-24054", sev:"P2", tag:"Database", text:"Analyze logs and execute Oracle SQL queries to investigate production issues and support root cause analysis."},
+    {id:"INC-24055", sev:"P3", tag:"API Testing", text:"Validate APIs and application functionality using Postman and SoapUI."},
+    {id:"INC-24056", sev:"P2", tag:"Middleware", text:"Monitor TIBCO EMS messaging services and batch jobs through JAMS and PuTTY."},
+    {id:"INC-24057", sev:"P3", tag:"Collaboration", text:"Collaborate with development, infrastructure, database, and business teams to resolve incidents efficiently."},
+    {id:"INC-24058", sev:"P3", tag:"Reporting", text:"Maintain operational dashboards and KPI reports using Xurrent and reporting tools."},
+    {id:"INC-24059", sev:"P1", tag:"Operations", text:"Support 24x7 production environments ensuring system stability, reliability, and customer satisfaction."},
+    {id:"INC-24060", sev:"P3", tag:"Improvement", text:"Contribute to continuous service improvement initiatives and knowledge management documentation."}
+  ];
+  const log = document.getElementById('ticketLog');
+  tickets.forEach(t=>{
+    const row=document.createElement('div'); row.className='ticket';
+    row.innerHTML=`<div class="ticket-id">${t.id}</div><div class="sev ${t.sev}">${t.sev}</div>
+      <div class="ticket-body"><span class="ticket-tag">${t.tag}</span>${t.text}</div>`;
+    log.appendChild(row);
+  });
+
+  // Skills grid
+  const skillGroups = [
+    {cat:"Monitoring", items:["Dynatrace","APM","Application Monitoring"]},
+    {cat:"ITSM", items:["Incident Management","Problem Management","Change Management","SLA Management","Xurrent"]},
+    {cat:"Database", items:["Oracle Database","SQL Queries"]},
+    {cat:"API Testing", items:["Postman","SoapUI","REST APIs"]},
+    {cat:"Middleware", items:["TIBCO EMS"]},
+    {cat:"Scheduling", items:["JAMS","Batch Monitoring"]},
+    {cat:"Operating Systems", items:["Windows","Linux/Unix"]},
+    {cat:"Tools", items:["PuTTY","Microsoft Office Suite"]},
+    {cat:"Methodologies", items:["ITIL","Production Support","Service Operations"]}
+  ];
+  const grid = document.getElementById('skillsGrid');
+  skillGroups.forEach(g=>{
+    const card=document.createElement('div'); card.className='skill-card';
+    card.innerHTML=`<div class="cat"><span class="mini-dot"></span>${g.cat}</div>
+      <ul>${g.items.map(i=>`<li>· ${i}</li>`).join('')}</ul>`;
+    grid.appendChild(card);
+  });
+
+  // sparkline
+  const spark = document.getElementById('spark');
+  const heights = [8,14,10,18,12,22,16,26,20,28];
+  heights.forEach(h=>{
+    const bar=document.createElement('i'); bar.style.height=h+'px'; spark.appendChild(bar);
+  });
+
+  // live uptime clock since Jan 1 2022 (start of TCS tenure)
+  const start = new Date("2022-01-01T00:00:00");
+  const clock = document.getElementById('uptimeClock');
+  function tick(){
+    const now=new Date();
+    let diff = Math.max(0, now-start);
+    const d = Math.floor(diff/86400000); diff-=d*86400000;
+    const h = Math.floor(diff/3600000); diff-=h*3600000;
+    const m = Math.floor(diff/60000); diff-=m*60000;
+    const s = Math.floor(diff/1000);
+    clock.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+  }
+  tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
